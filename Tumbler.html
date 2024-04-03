@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>タンブラー診断メーカー</title>
+  <style>
+    body {
+      font-family: 'Arial Rounded MT Bold', Arial, sans-serif;
+      background-color: #DDFFDD; /* 水色系の背景 */
+      color: #003366; /* 深い青 */
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      color: #0066cc; /* 深い水色 */
+      text-align: center;
+    }
+    p {
+      margin-bottom: 10px;
+    }
+    form {
+      margin-bottom: 20px;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    input[type="radio"] {
+      margin-right: 10px;
+    }
+    button[type="submit"] {
+      background-color: #0066cc; /* 深い水色 */
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      margin-top: 10px;
+      width: 100%;
+    }
+    button[type="submit"]:hover {
+      background-color: #0052a3; /* より濃い水色 */
+    }
+    #result {
+      display: none;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    #result h2 {
+      color: #0066cc; /* 深い水色 */
+      margin-top: 0;
+      text-align: center;
+    }
+    #result h3 {
+      color: #003366; /* 深い青 */
+    }
+    #result p {
+      margin-bottom: 10px;
+      text-align: justify;
+    }
+    a {
+      color: #0099ff; /* 水色 */
+      text-decoration: none;
+    }
+    a:hover {
+      text-decoration: underline;
+    }
+    img {
+      display: block;
+      margin: 0 auto;
+      max-width: 100%;
+      height: auto;
+      border-radius: 10px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    /* 追加のスタイル */
+    #shareButton {
+      display: block;
+      width: 100%;
+      background-color: #000; /* 黒 */
+      color: white;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      text-align: center;
+      margin-top: 20px;
+    }
+  </style>
+</head>
+<body>
+  <h1>タンブラー診断ぅ🥤</h1>
+  <p>葛西美空さんのタンブラーに転生するとどのタンブラーになるかを診断します(全部で５種類あるよ)</p>
+  <form id="quiz">
+    <p>あなたの名前：<input type="text" name="name" required></p>
+    <p>Q1: 一番好きな空は？</p>
+    <input type="radio" name="q1" value="2">晴れ<br>
+    <input type="radio" name="q1" value="1">曇り<br>
+    <input type="radio" name="q1" value="-1">雨<br>
+    <input type="radio" name="q1" value="3">大嵐<br>
+    <p>Q2: 遊びに行くなら</p>
+    <input type="radio" name="q2" value="1">カラオケ<br>
+    <input type="radio" name="q2" value="2">テーマパーク<br>
+    <input type="radio" name="q2" value="-1">映画館<br>
+    <input type="radio" name="q2" value="3">サバンナ<br>
+    <p>Q3: 全財産を払えば50%の確率で10倍になり50%の確率で-1億円になるガチャがあれば回す？</p>
+    <input type="radio" name="q3" value="2">回す<br>
+    <input type="radio" name="q3" value="-1">回さない<br>
+    <input type="radio" name="q3" value="3">10連する<br>
+    <p>Q4: 行ってみたい星は</p>
+    <input type="radio" name="q4" value="1">火星<br>
+    <input type="radio" name="q4" value="2">エウロパ<br>
+    <input type="radio" name="q4" value="-1">月<br>
+    <input type="radio" name="q4" value="3">ブラックホール<br>
+    <button type="submit">判定</button>
+  </form>
+  <div id="result"></div>
+  <script>
+    const quizForm = document.getElementById("quiz");
+    const resultDiv = document.getElementById("result");
+    
+    quizForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const answers = Array.from(quizForm.elements).filter((element) => element.checked).map((element) => element.value);
+      const totalScore = answers.reduce((sum, answer) => sum + parseInt(answer), 0);
+      const name = quizForm.elements["name"].value;
+      if (answers.length < 4) {
+        resultDiv.textContent = "すべての質問に答えてください。";
+        return;
+      }
+      const comment = calculateComment(totalScore);
+      showResult(name, totalScore, comment);
+    });
+    
+    function calculateComment(totalScore) {
+      if (totalScore <= -1) {
+        return {
+          title: "某ケモンタンブラー",
+          description: "冷静に問題を対処するのが得意で内部の温度を保つのに長けている。小さいくて持ち運びやすい。また、コラボ商品の為恐らく高くてレアなタンブラー",
+          summary: "いろいろな場所に持ち運べる便利なタンブラー。某ケモンファンなら誰もが欲しがるはず!",
+          image: "https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpihbQwdoWRC92RIzYn4HGs06qt2yNK2I_CuWmdMaZET6KHxjsr9vQHbaRYHjq5THOf1QrqEAJ1w7yaPyS-gj0cyRyBgqYBw=w1717-h959"
+        };
+      } else if (totalScore <= 2) {
+        return {
+          title: "ノーマルタンブラー",
+          description: "バランス感覚に優れていて真っ直ぐなタンブラー。用途が広く一番使いやすい。どこにでも馴染める性格。葛西さんの顔よりでかい",
+          summary: "バランス感覚に優れていて真っ直ぐなタンブラー。用途が広く一番使いやすい。",
+          image: "https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpiha9PUbhXynYWnS-hOZz4i-7Qlqy3h66nHkU2AHuCRSepqSccYrmKV2Ey0Yj2BwMfAd4NC74BPSaxv8tMAyiYjMSgC9P=w1717-h959"
+        };
+      } else if (totalScore <= 5) {
+        return {
+          title: "レッドトゲトゲタンブラー",
+          description: "厨二病心をくすぐるタンブラー。見た目は怖そうだが、中の大切なものは必ず守り抜く優しさもある。ミクオくんにプレゼントしてあげるときっと喜んでくれるはず！",
+          summary: "厨二病心をくすぐるタンブラー。外見は怖いが大切なものは必ず守り抜く。",
+          image: "https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpihZxuPhkLYxclTZ7RUWgs9y8XQqR9jLJ6TS4Fbr6ZLNHLaMBi0ODf_ksGUB6DIBREYfiqthH1ryDJHdfCR0wCLZCyGMC=w1717-h959"
+        };
+      } else if (totalScore <= 8) {
+        return {
+          title: "樽タンブラー",
+          description: "ジャッ〇スパロウがビールを豪快に飲んでそうなタンブラー。海賊のような野心を持ちつつ、心が広く優しい性格です。名前の通り器が大きく、多くの人から信頼される人間です",
+          summary: "海賊のような野心を持ちつつ、心が広く優しいタンブラー。",
+          image: "https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpihaAe0EdSZdvesvCIxiPXgECDgRK3cL4sa2F1yEKZTpVA1xyc4otomwwFGQzemGU6Tm9JfiSgrYeCqe6VhpsXh1WRaDL=w1717-h959"
+        };
+      } else {
+        return {
+          title: "アルティメットシェイキングタンブラー",
+          description: "某ケモンタンブラーとノーマルタンブラーが合体してできたタンブラー。シャカシャカと大きな音を立てて、常識を蹴散らしながら新たな道を切り開いていく最強のタンブラー。2つ使うので洗うのは大変",
+          summary: "新たな道を切り開いていく最強のタンブラー。洗うのは大変",
+          image: "https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpihZww0e81YyeDYGDHPaXF69oGcPumEUBu1lrfQu3NyBCKezwdwR7LAxzMcQpBWIFx-eX47iCs_Vz7E6j_0e426e3dUgmeA=w1717-h959"
+        };
+      }
+    }
+    
+    function showResult(name, totalScore, comment) {
+      quizForm.style.display = "none";
+      resultDiv.style.display = "block";
+      resultDiv.innerHTML = `
+        <h2>${name}さんの診断結果</h2>
+        <h3>${comment.title}</h3>
+        <p>${comment.description}</p>
+        <img src="${comment.image}" alt="${comment.title}">
+      `;
+
+      // Twitter共有ボタンを追加
+      const shareButton = document.createElement('button');
+      shareButton.textContent = '𝕏で共有';
+      shareButton.id = 'shareButton';
+      shareButton.onclick = () => shareOnTwitter(name, comment);
+      resultDiv.appendChild(shareButton);
+    }
+
+    function shareOnTwitter(name, result) {
+      const text = `${name}は${result.title}！ ${result.summary} #葛西美空 #Miklear https://sites.google.com/view/hamubomaker/tumbler?authuser=0`;
+      const tweetUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}`;
+      window.open(tweetUrl, '_blank');
+    }
+  </script>
+</body>
+</html>
