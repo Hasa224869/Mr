@@ -4,7 +4,6 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>落ち着いたウェブサイト</title>
-  <script src="https://unpkg.com/@dotlottie/player-component@latest/dist/dotlottie-player.mjs" type="module"></script>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -69,8 +68,9 @@
       position: absolute;
       top: 130px;
       right: 80px;
-      width: 700px;
-      height: 400px;
+      width: 100%; /* 幅を100%に変更 */
+      max-width: 700px; /* 最大幅を設定 */
+      height: auto; /* 高さを自動調整 */
     }
     #siteTitle {
       position: absolute;
@@ -123,21 +123,29 @@
       margin-left: 40px;
     }
      #news{
-      padding-top: 20px
+      padding-top: 20px;
+      text-align: center; /* 中央揃え */
     }
     .container{
-  width: 100%;
-  height : 300px;
-  padding: 10px;
-  position: relative;
+      display: none; /* New! の非表示 */
     }
     .container p{
-  position: absolute;
-  top: -515px; /* 上部からの距離 */
-  left: 45px;
-  font-size: 20px;
-  transform: rotate(-30deg);
-  color: #04a4fc;
+      position: absolute;
+      top: -515px; /* 上部からの距離 */
+      left: 45px;
+      font-size: 20px;
+      transform: rotate(-30deg);
+      color: #04a4fc;
+    }
+
+    /* スマートフォン用のスタイル */
+    @media screen and (max-width: 768px) {
+      #header {
+        position: static; /* ヘッダー画像の位置を相対的に変更 */
+        width: 100%; /* 幅を100%に変更 */
+        max-width: none; /* 最大幅を解除 */
+        height: auto; /* 高さを自動調整 */
+      }
     }
   </style>
 </head>
@@ -148,8 +156,6 @@
       <span></span>
       <span></span>
     </div>
-    <img id="siteIcon" src="site-icon.png" alt="Site Icon">
-    <p id="siteTitle"><span style="color:#04a4fc;">MIklear</span>-葛西美空さん非公式ファンサイト</p>
     <nav id="menu">
       <ul>
         <li class="menu-item"><a href="#">ニュース</a></li>
@@ -159,23 +165,22 @@
         <li class="menu-item"><a href="#">お知らせ</a></li>
       </ul>
     </nav>
+    <img id="siteIcon" src="site-icon.png" alt="Site Icon">
+    <p id="siteTitle"><span style="color:#04a4fc;">MIklear</span>-葛西美空さん非公式ファンサイト</p>
   </header>
   <div id="main">
     <!-- ここにコンテンツを配置 -->
     <p id="news">News</p>
-    <div id="animation" style="display: none;">
-      <dotlottie-player src="https://lottie.host/56f39ed2-15f0-4812-b8af-ab949c37ad64/MrjKCQK1gK.json" background="transparent" speed="1" style="width: 300px; height: 300px;" loop autoplay></dotlottie-player>
-    </div>
+    <p id="oshirase">お知らせ</p>
+    <ul id="kajou">
+      <li>深夜に荒ぶる葛西美空が公開されました!!</li>
+      <li><iframe width="560" height="315" src="https://www.youtube.com/embed/IhiCsK8vESQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+    </ul>
   </div>
   <div class="container">
     <p>New!</p>
   </div>
   <script>
-    window.addEventListener('load', function() {
-      // ページの読み込みが完了したら、アニメーションを表示する
-      document.getElementById('animation').style.display = 'block';
-    });
-
     document.getElementById('menuToggle').addEventListener('click', function() {
       var menu = document.getElementById('menu');
       var toggle = document.getElementById('menuToggle');
