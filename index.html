@@ -68,8 +68,9 @@
       position: absolute;
       top: 130px;
       right: 80px;
-      width: 700px;
-      height: 400px;
+      width: 100%; /* 幅を100%に変更 */
+      max-width: 700px; /* 最大幅を設定 */
+      height: auto; /* 高さを自動調整 */
     }
     #siteTitle {
       position: absolute;
@@ -110,30 +111,41 @@
     }
     #oshirase {
       padding: 50px; /* 左からの距離 */
-      top: 100;
+      top: 60px; 
       left: -250px;
       width: 250px;
       height: 100%;
       color: #fff; /* 白 */
       padding-top: 600px;
       transition: left 0.3s ease;
-      }
+    }
      #kajou {
       margin-left: 40px;
     }
+     #news{
+      padding-top: 20px;
+      text-align: center; /* 中央揃え */
+    }
     .container{
-  width: 100%;
-  height : 300px;
-  padding: 10px;
-  position: relative;
+      display: none; /* New! の非表示 */
     }
     .container p{
-  position: absolute;
-  top: -195px;
-  left: 45px;
-  font-size: 20px;
-  transform: rotate(-30deg);
-  color: #04a4fc;
+      position: absolute;
+      top: -515px; /* 上部からの距離 */
+      left: 45px;
+      font-size: 20px;
+      transform: rotate(-30deg);
+      color: #04a4fc;
+    }
+
+    /* スマートフォン用のスタイル */
+    @media screen and (max-width: 768px) {
+      #header {
+        position: static; /* ヘッダー画像の位置を相対的に変更 */
+        width: 100%; /* 幅を100%に変更 */
+        max-width: none; /* 最大幅を解除 */
+        height: auto; /* 高さを自動調整 */
+      }
     }
   </style>
 </head>
@@ -147,7 +159,7 @@
     <nav id="menu">
       <ul>
         <li class="menu-item"><a href="#">ニュース</a></li>
-        <li class="menu-item"><a href="tumbler.html">タンブラー診断</a></li> <!-- 修正 -->
+        <li class="menu-item"><a href="#">ファンレター</a></li>
         <li class="menu-item"><a href="#">サイトの詳細</a></li>
         <li class="menu-item"><a href="#">誕生日カウント</a></li>
         <li class="menu-item"><a href="#">お知らせ</a></li>
@@ -158,15 +170,15 @@
   </header>
   <div id="main">
     <!-- ここにコンテンツを配置 -->
-    <p id=oshirase>お知らせ</p>
-    <img id="header" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpihacAUpwvb9tOhvhfsBT8oSTAzTb58uHI0i66PzqUet_vL7jEhTZVid_pK2aw05c6dNMwko5_HrJfyvRGHroobNL5mDvKO-zICs=w1717-h959-v0" alt="header">
-  <ul id="kajou">
-    <li>深夜に荒ぶる葛西美空が公開されました!!</li>
-    <li></li>
-  </ul>
+    <p id="news">News</p>
+    <p id="oshirase">お知らせ</p>
+    <ul id="kajou">
+      <li>深夜に荒ぶる葛西美空が公開されました!!</li>
+      <li><iframe width="560" height="315" src="https://www.youtube.com/embed/IhiCsK8vESQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+    </ul>
   </div>
   <div class="container">
-      <p>New!</p>
+    <p>New!</p>
   </div>
   <script>
     document.getElementById('menuToggle').addEventListener('click', function() {
