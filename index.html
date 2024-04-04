@@ -3,92 +3,183 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>葛西美空ファンサイト</title>
+  <title>落ち着いたウェブサイト</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
-      background-color: #f0f8ff; /* 水色系の背景 */
+      background-color: #000; /* 黒 */
       margin: 0;
       padding: 0;
+      color: #fff;
     }
     header {
-      background-color: #6495ed; /* 淡い青 */
+      background-color: #000; /* 黒 */
       padding: 20px;
       text-align: center;
-      color: white;
+      color: #fff; /* 白 */
+      position: relative;
     }
-    h1 {
-      margin: 0;
-      font-size: 2.5em;
+    #menuIcon {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      cursor: pointer;
+      z-index: 1000;
     }
-    nav {
-      background-color: #fff;
-      text-align: center;
-      padding: 10px 0;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    #menuToggle span {
+      display: block;
+      width: 30px;
+      height: 1px; /* 太さを2pxに変更 */
+      background-color: #04a4fc; /* 青 */
+      margin-bottom: 6px; /* 間隔を調整 */
+      transition: transform 0.3s ease;
     }
-    nav a {
-      text-decoration: none;
-      color: #333;
-      margin: 0 15px;
-      font-size: 1.2em;
+    #menuToggle span:nth-child(2) {
+      margin-bottom: 6px; /* 間隔を調整 */
     }
-    main {
-      padding: 20px;
+    #menuToggle span:last-child {
+      margin-bottom: 0;
     }
-    section {
-      margin-bottom: 30px;
+    #menuToggle.open span:first-child {
+      transform: rotate(45deg) translate(2px, 2px);
     }
-    .content {
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    #menuToggle.open span:nth-child(2) {
+      opacity: 0;
     }
-    footer {
-      background-color: #6495ed; /* 淡い青 */
-      color: white;
-      text-align: center;
-      padding: 10px;
+    #menuToggle.open span:last-child {
+      transform: rotate(-45deg) translate(2px, -2px);
+    }
+    #menuToggle {
       position: fixed;
-      bottom: 0;
-      width: 100%;
+      top: 70px; /* 上部から50pxの位置 */
+      left: 40px; /* 左から20pxの位置 */
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    #siteIcon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 30px;
+      height: 30px;
+    }
+     #header {
+      position: absolute;
+      top: 130px;
+      right: 80px;
+      width: 700px;
+      height: 400px;
+    }
+    #siteTitle {
+      position: absolute;
+      top: 10px; /* ハンバーガーメニュー上に配置 */
+      left: 40px; /* ハンバーガーメニューの右に配置 */
+      text-align: left; /* テキストを左寄せ */
+      color: #fff; /* 白 */
+      font-size: 18px; /* フォントサイズを変更 */
+    }
+    #menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #000; /* 黒 */
+      padding-top: 60px;
+      transition: left 0.3s ease;
+    }
+    #menu ul {
+      list-style-type: none;
+      padding: 0;
+    }
+    #menu li {
+      padding: 15px 0;
+      text-align: center;
+    }
+    #menu a {
+      color: #fff; /* 白 */
+      text-decoration: none;
+    }
+    #main {
+      padding: 20px;
+    }
+    .menu-item {
+      color: #fff; /* 白 */
+      margin-bottom: 20px;
+    }
+    #oshirase {
+      padding: 50px; /* 左からの距離 */
+      top: 100;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      color: #fff; /* 白 */
+      padding-top: 600px;
+      transition: left 0.3s ease;
+      }
+     #kajou {
+      margin-left: 40px;
+    }
+    .container{
+	width: 100%;
+	height : 300px;
+	padding: 10px;
+	position: relative;
+    }
+    .container p{
+	position: absolute;
+	top: -195px;
+	left: 45px;
+	font-size: 20px;
+	transform: rotate(-30deg);
+    color: #04a4fc
     }
   </style>
 </head>
 <body>
   <header>
-    <h1>葛西美空ファンサイト</h1>
+    <div id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <img id="siteIcon" src="site-icon.png" alt="Site Icon">
+    <p id="siteTitle"><span style="color:#04a4fc;">MIklear</span>-葛西美空さん非公式ファンサイト</p>
+    <nav id="menu">
+      <ul>
+        <li class="menu-item"><a href="#">ニュース</a></li>
+        <li class="menu-item"><a href="#">ファンレター</a></li>
+        <li class="menu-item"><a href="#">サイトの詳細</a></li>
+        <li class="menu-item"><a href="#">誕生日カウント</a></li>
+        <li class="menu-item"><a href="#">お知らせ</a></li>
+      </ul>
+    </nav>
   </header>
-  <nav>
-    <a href="#">ホーム</a>
-    <a href="#">プロフィール</a>
-    <a href="#">最新情報</a>
-    <a href="#">ギャラリー</a>
-    <a href="#">お問い合わせ</a>
-  </nav>
-  <main>
-    <section>
-      <div class="content">
-        <h2>プロフィール</h2>
-        <p>葛西美空さんのプロフィール情報がここに入ります。</p>
-      </div>
-    </section>
-    <section>
-      <div class="content">
-        <h2>最新情報</h2>
-        <p>葛西美空さんの最新情報がここに入ります。</p>
-      </div>
-    </section>
-    <section>
-      <div class="content">
-        <h2>ギャラリー</h2>
-        <p>葛西美空さんの写真や動画がここに入ります。</p>
-      </div>
-    </section>
-  </main>
-  <footer>
-    &copy; 2024 葛西美空ファンサイト
-  </footer>
+  <div id="main">
+    <!-- ここにコンテンツを配置 -->
+    <p id=oshirase>お知らせ</p>
+    <img id="header" src="https://lh3.googleusercontent.com/u/0/drive-viewer/AKGpihacAUpwvb9tOhvhfsBT8oSTAzTb58uHI0i66PzqUet_vL7jEhTZVid_pK2aw05c6dNMwko5_HrJfyvRGHroobNL5mDvKO-zICs=w1717-h959-v0" alt="header">
+  <ul id="kajou">
+    <li>深夜に荒ぶる葛西美空が公開されました!!</li>
+    <li></li>
+  </ul>
+  </div>
+  <div class="container">
+      <p>New!</p>
+  </div>
+  <script>
+    document.getElementById('menuToggle').addEventListener('click', function() {
+      var menu = document.getElementById('menu');
+      var toggle = document.getElementById('menuToggle');
+      if (menu.style.left === '-250px') {
+        menu.style.left = '0';
+        toggle.classList.add('open');
+      } else {
+        menu.style.left = '-250px';
+        toggle.classList.remove('open');
+      }
+    });
+  </script>
 </body>
 </html>
