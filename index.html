@@ -22,7 +22,7 @@
     #menuIcon {
       position: absolute;
       top: 20px;
-      right: 20px; /* スマートフォンの場合は右上に移動 */
+      left: 20px;
       cursor: pointer;
       z-index: 1000;
     }
@@ -51,8 +51,8 @@
     }
     #menuToggle {
       position: fixed;
-      top: 20px; /* 上部から20pxの位置 */
-      left: 20px; /* 左から20pxの位置 */
+      top: 70px; /* 上部から50pxの位置 */
+      left: 40px; /* 左から20pxの位置 */
       cursor: pointer;
       z-index: 1000;
     }
@@ -67,16 +67,14 @@
      #header {
       position: absolute;
       top: 130px;
-      right: 50%; /* 中央揃え */
-      transform: translateX(50%);
-      max-width: 90%; /* 最大幅設定 */
-      height: auto; /* 高さを自動調整 */
+      right: 80px;
+      width: 700px;
+      height: 400px;
     }
     #siteTitle {
       position: absolute;
       top: 10px; /* ハンバーガーメニュー上に配置 */
-      left: 50%; /* 中央揃え */
-      transform: translateX(-50%);
+      left: 40px; /* ハンバーガーメニューの右に配置 */
       text-align: left; /* テキストを左寄せ */
       color: #fff; /* 白 */
       font-size: 18px; /* フォントサイズを変更 */
@@ -84,19 +82,12 @@
     #menu {
       position: fixed;
       top: 0;
-      left: 0;
-      width: 100%; /* 全画面に広がる */
-      height: 100%; /* 全画面に広がる */
-      background-color: rgba(0, 0, 0, 0.9); /* 半透明の黒 */
-      padding-top: 60px; /* 上部メニュー分のスペース */
-      transition: opacity 0.3s ease; /* フェードイン・アウトのアニメーション */
-      opacity: 0; /* 初期状態は非表示 */
-      pointer-events: none; /* メニューが非表示のときはクリックイベントを無効化 */
-      z-index: 999; /* メニューが最前面に表示されるように設定 */
-    }
-    #menu.open {
-      opacity: 1; /* メニューが開いたときに表示 */
-      pointer-events: auto; /* メニューが表示されたときにクリックイベントを有効化 */
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #000; /* 黒 */
+      padding-top: 60px;
+      transition: left 0.3s ease;
     }
     #menu ul {
       list-style-type: none;
@@ -139,8 +130,7 @@
     .container p{
   position: absolute;
   top: -195px;
-  left: 50%; /* 中央揃え */
-  transform: translateX(-50%);
+  left: 45px;
   font-size: 20px;
   transform: rotate(-30deg);
   color: #04a4fc;
@@ -159,7 +149,7 @@
     <nav id="menu">
       <ul>
         <li class="menu-item"><a href="#">ニュース</a></li>
-        <li class="menu-item"><a href="#">タンブラー診断</a></li>
+        <li class="menu-item"><a href="tumbler.html">タンブラー診断</a></li> <!-- 修正 -->
         <li class="menu-item"><a href="#">サイトの詳細</a></li>
         <li class="menu-item"><a href="#">誕生日カウント</a></li>
         <li class="menu-item"><a href="#">お知らせ</a></li>
@@ -182,10 +172,12 @@
     document.getElementById('menuToggle').addEventListener('click', function() {
       var menu = document.getElementById('menu');
       var toggle = document.getElementById('menuToggle');
-      if (menu.classList.contains('open')) {
-        menu.classList.remove('open');
+      if (menu.style.left === '-250px') {
+        menu.style.left = '0';
+        toggle.classList.add('open');
       } else {
-        menu.classList.add('open');
+        menu.style.left = '-250px';
+        toggle.classList.remove('open');
       }
     });
   </script>
