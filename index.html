@@ -116,7 +116,7 @@
     #oshirase {
       padding: 50px; /* 左からの距離 */
       top: 60px;
-      left: -250px
+      left: -250px;
       width: 250px;
       height: 100%;
       color: #fff; /* 白 */
@@ -146,6 +146,20 @@
       color: #04a4fc;
     }
 
+    /* 3つのテキストをハンバーガーメニューの右に配置 */
+    #additionalText {
+      position: fixed;
+      top: 70px; /* ハンバーガーメニューの上 */
+      left: 180px; /* ハンバーガーメニューの右から180px */
+      color: #fff;
+      display: flex;
+      z-index: 100; /* メニューより手前に表示 */
+    }
+
+    #additionalText span {
+      margin-right: 20px; /* テキスト間の隙間 */
+    }
+
     /* スマートフォン用のスタイル */
     @media screen and (max-width: 768px) {
       #header {
@@ -168,6 +182,11 @@
       #news {
         padding-top: 10px; /* ニュースの上部のパディングを減らす */
       }
+      /* スマートフォン用のテキストの位置調整 */
+      #additionalText {
+        top: 70px; /* ハンバーガーメニューの上 */
+        left: 120px; /* ハンバーガーメニューの右から20px */
+      }
     }
   </style>
 </head>
@@ -189,6 +208,12 @@
     </nav>
     <img id="siteIcon" src="site-icon.png" alt="Site Icon">
     <p id="siteTitle"><span style="color:#04a4fc;">MIklear</span>-葛西美空さん非公式ファンサイト</p>
+    <!-- 3つの追加テキスト -->
+    <div id="additionalText">
+      <span>サイトの詳細</span>
+      <span>コンテンツ</span>
+      <span>お知らせ</span>
+    </div>
   </header>
   <div id="main">
     <p id="news">News</p>
