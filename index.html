@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>落ち着いたウェブサイト</title>
+  <title>Miklear-葛西美空さん非公式ファンサイト</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -17,7 +17,11 @@
       padding: 20px;
       text-align: center;
       color: #fff; /* 白 */
-      position: relative;
+      position: fixed; /* ヘッダーを固定 */
+      top: 0; /* ヘッダーを画面上部に配置 */
+      left: 0; /* ヘッダーを画面左に配置 */
+      width: 100%; /* ヘッダーを画面幅いっぱいに広げる */
+      z-index: 100; /* 他の要素の上に表示させるために */
     }
     #menuIcon {
       position: absolute;
@@ -64,14 +68,7 @@
       width: 30px;
       height: 30px;
     }
-     #header {
-      position: absolute;
-      top: 130px;
-      right: 80px;
-      width: 100%; /* 幅を100%に変更 */
-      max-width: 700px; /* 最大幅を設定 */
-      height: auto; /* 高さを自動調整 */
-    }
+
     #siteTitle {
       position: absolute;
       top: 10px; /* ハンバーガーメニュー上に配置 */
@@ -80,6 +77,7 @@
       color: #fff; /* 白 */
       font-size: 18px; /* フォントサイズを変更 */
     }
+
     #menu {
       position: fixed;
       top: 0;
@@ -90,45 +88,55 @@
       padding-top: 60px;
       transition: left 0.3s ease;
     }
+
     #menu ul {
       list-style-type: none;
       padding: 0;
     }
+
     #menu li {
       padding: 15px 0;
       text-align: center;
     }
+
     #menu a {
       color: #fff; /* 白 */
       text-decoration: none;
     }
+
     #main {
       padding: 20px;
     }
+
     .menu-item {
       color: #fff; /* 白 */
       margin-bottom: 20px;
     }
+
     #oshirase {
       padding: 50px; /* 左からの距離 */
-      top: 60px; 
-      left: -250px;
+      top: 60px;
+      left: -250px
       width: 250px;
       height: 100%;
       color: #fff; /* 白 */
       padding-top: 600px;
       transition: left 0.3s ease;
     }
-     #kajou {
+
+    #kajou {
       margin-left: 40px;
     }
-     #news{
+
+    #news{
       padding-top: 20px;
       text-align: center; /* 中央揃え */
     }
+
     .container{
       display: none; /* New! の非表示 */
     }
+
     .container p{
       position: absolute;
       top: -515px; /* 上部からの距離 */
@@ -183,7 +191,6 @@
     <p id="siteTitle"><span style="color:#04a4fc;">MIklear</span>-葛西美空さん非公式ファンサイト</p>
   </header>
   <div id="main">
-    <!-- ここにコンテンツを配置 -->
     <p id="news">News</p>
     <p id="oshirase">お知らせ</p>
     <ul id="kajou">
