@@ -128,16 +128,16 @@
       margin-left: 40px;
     }
 
-    #news{
-      padding-top: 20px;
+    #news {
+      padding-top: 50px; /* 上部の余白を調整 */
       text-align: center; /* 中央揃え */
     }
 
-    .container{
+    .container {
       display: none; /* New! の非表示 */
     }
 
-    .container p{
+    .container p {
       position: absolute;
       top: -515px; /* 上部からの距離 */
       left: 45px;
@@ -148,12 +148,11 @@
 
     /* 3つのテキストをハンバーガーメニューの右に配置 */
     #additionalText {
-      position: fixed;
+      position: absolute;
       top: 70px; /* ハンバーガーメニューの上 */
       left: 180px; /* ハンバーガーメニューの右から180px */
       color: #fff;
       display: flex;
-      z-index: 100; /* メニューより手前に表示 */
     }
 
     #additionalText span {
@@ -180,12 +179,12 @@
         height: auto; /* 高さを自動調整 */
       }
       #news {
-        padding-top: 10px; /* ニュースの上部のパディングを減らす */
+        padding-top: 30px; /* ニュースの上部のパディングを調整 */
       }
       /* スマートフォン用のテキストの位置調整 */
       #additionalText {
         top: 70px; /* ハンバーガーメニューの上 */
-        left: 120px; /* ハンバーガーメニューの右から20px */
+        left: 20px; /* ハンバーガーメニューの右から20px */
       }
     }
   </style>
@@ -208,12 +207,6 @@
     </nav>
     <img id="siteIcon" src="site-icon.png" alt="Site Icon">
     <p id="siteTitle"><span style="color:#04a4fc;">MIklear</span>-葛西美空さん非公式ファンサイト</p>
-    <!-- 3つの追加テキスト -->
-    <div id="additionalText">
-      <span>サイトの詳細</span>
-      <span>コンテンツ</span>
-      <span>お知らせ</span>
-    </div>
   </header>
   <div id="main">
     <p id="news">News</p>
@@ -241,3 +234,4 @@
   </script>
 </body>
 </html>
+
