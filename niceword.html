@@ -111,15 +111,19 @@
       padding-top: 60px; /* お知らせの上部のパディングを調整 */
       font-size: 20px;
     }
-    #meigen{
+    .quote {
+      margin-bottom: 30px; /* 名言同士の間の余白を拡大 */
+    }
+    #meigen, #meigenen {
       text-align: center;
+      color: #fff;
+    }
+    #meigen {
       color: #04a4fc;
       padding-top: 10px;
     }
-    #meigenen{
-      text-align: center;
-      color: #fff;
-      padding-top:  0px;
+    #meigenen {
+      padding-top: 0px;
     }
     .container {
       display: none; /* New! の非表示 */
@@ -157,26 +161,6 @@
         padding-top: 30px; /* ニュースの上部のパディングを調整 */
       }
     }
-    
-    /* iPad 用のスタイル */
-    @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
-      #meigentit {
-        font-size: 24px;
-      }
-      #meigen, #meigenen {
-        font-size: 18px;
-      }
-    }
-    
-    /* PC 用のスタイル */
-    @media screen and (min-width: 1025px) {
-      #meigentit {
-        font-size: 28px;
-      }
-      #meigen, #meigenen {
-        font-size: 22px;
-      }
-    }
   </style>
 </head>
 <body>
@@ -198,15 +182,23 @@
     <p id="siteTitle"><span style="color:#04a4fc;">MIklear</span>-葛西美空さん非公式ファンサイト</p>
   </header>
   <div id="main">
-    <p id="meigentit">名言・迷言集</p>
-    <p id="meigen">1.人の名前を2回言うのは愛情に溢れている</p> 
-    <p id="meigenen">Saying someone's name twice is full of love.</p>
-    <p id="meigen">2.葛西美空が言っていればそれは世の真実(理)である。</p> 
-    <p id="meigenen">If Miku Kasai says it, it is the truth of the world.</p>
-    <p id="meigen">3.人は、飛べる</p> 
-    <p id="meigenen">We can fly.</p>
-    <p id="meigen">4.もしもし、お母さんだけど試験お疲れ様。<br>お家帰ってきたら焼肉しようね。<br>がんばったね</p> 
-    <p id="meigenen">Hello, it's your mother.Thanks for the exam.<br>Let's have yakiniku when you get home.<br>Thanks for your hard work.</p>
+    <div class="quote">
+      <p id="meigentit">名言・迷言集</p>
+      <p id="meigen">1.人の名前を2回言うのは愛情に溢れている</p> 
+      <p id="meigenen">Saying someone's name twice is full of love.</p>
+    </div>
+    <div class="quote">
+      <p id="meigen">2.葛西美空が言っていればそれは世の真実(理)である。</p> 
+      <p id="meigenen">If Miku Kasai says it, it is the truth of the world.</p>
+    </div>
+    <div class="quote">
+      <p id="meigen">3.人は、飛べる</p> 
+      <p id="meigenen">We can fly.</p>
+    </div>
+    <div class="quote">
+      <p id="meigen">4.もしもし、お母さんだけど試験お疲れ様。<br>お家帰ってきたら焼肉しようね。<br>がんばったね</p> 
+      <p id="meigenen">Hello, it's your mother.<br>Thanks for the exam.<br>Let's have yakiniku when you get home.<br>Thanks for your hard work.</p>
+    </div>
   </div>
   <script>
     document.getElementById('menuToggle').addEventListener('click', function() {
@@ -221,3 +213,5 @@
       }
     });
   </script>
+</body>
+</html>
