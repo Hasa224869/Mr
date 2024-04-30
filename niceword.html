@@ -157,6 +157,26 @@
         padding-top: 30px; /* ニュースの上部のパディングを調整 */
       }
     }
+    
+    /* iPad 用のスタイル */
+    @media only screen and (min-device-width: 768px) and (max-device-width: 1024px) {
+      #meigentit {
+        font-size: 24px;
+      }
+      #meigen, #meigenen {
+        font-size: 18px;
+      }
+    }
+    
+    /* PC 用のスタイル */
+    @media screen and (min-width: 1025px) {
+      #meigentit {
+        font-size: 28px;
+      }
+      #meigen, #meigenen {
+        font-size: 22px;
+      }
+    }
   </style>
 </head>
 <body>
