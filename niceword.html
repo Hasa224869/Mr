@@ -113,8 +113,10 @@
     }
     .quote {
       margin-bottom: 30px; /* 名言同士の間の余白を拡大 */
+      opacity: 0; /* 初期状態で非表示 */
+      transition: opacity 1s ease; /* フェードインのアニメーション */
     }
-    #meigen, #meigenen {
+    #meigen, #kaisetu, #meigenen {
       text-align: center;
       color: #fff;
     }
@@ -124,6 +126,10 @@
     }
     #meigenen {
       padding-top: 0px;
+    }
+    #kaisetu {
+      padding-top: 0px;
+      font-size: 15px;
     }
     .container {
       display: none; /* New! の非表示 */
@@ -194,6 +200,7 @@
     <div class="quote">
       <p id="meigen">3.人は、飛べる</p> 
       <p id="meigenen">We can fly.</p>
+      <p id="kaisetu">困難に立ち向かい、自身の可能性を信じることで、驚くべきことを成し遂げることができるというメッセージが込められています。<br>世界で初めて空を飛んだライト兄弟は4千回以上もの失敗を繰り返したといいます。<br>彼らのように失敗しようが笑われようがただ自分を信じて突き進む事で不可能に思えた壁も打ち壊すができるでしょう。</p>
     </div>
     <div class="quote">
       <p id="meigen">4.もしもし、お母さんだけど試験お疲れ様。<br>お家帰ってきたら焼肉しようね。<br>がんばったね</p> 
@@ -212,4 +219,28 @@
         toggle.classList.remove('open');
       }
     });
+
+    // 名言の表示を制御する関数
+    function fadeInQuotes() {
+      var quotes = document.querySelectorAll('.quote');
+      quotes.forEach(function(quote, index) {
+        setTimeout(function() {
+          quote.style.opacity = 1;
+        }, 1000 * index); // 名言ごとに1秒ごとに表示
+      });
+    }
+
+    // スクロール時に名言を表示
+    window.addEventListener('scroll', function() {
+      var scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+      var windowHeight = window.innerHeight;
+      var mainHeight = document.getElementById('main').offsetHeight;
+      var offset = mainHeight - windowHeight;
+
+      if (scrollTop > offset) {
+        fadeInQuotes();
+      }
+    });
   </script>
+</body>
+</html>
