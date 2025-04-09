@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Miklear-葛西美空さん非公式ファンサイト</title>
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background-color: #000; /* 黒 */
+      margin: 0;
+      padding: 0;
+      color: #fff;
+    }
+    header {
+      background-color: #000; /* 黒 */
+      padding: 20px;
+      text-align: center;
+      color: #fff; /* 白 */
+      position: fixed; /* ヘッダーを固定 */
+      top: 0; /* ヘッダーを画面上部に配置 */
+      left: 0; /* ヘッダーを画面左に配置 */
+      width: 100%; /* ヘッダーを画面幅いっぱいに広げる */
+      z-index: 100; /* 他の要素の上に表示させるために */
+    }
+    #menuIcon {
+      position: absolute;
+      top: 20px;
+      left: 20px;
+      cursor: pointer;
+      z-index: 1000;
+    }
+    #menuToggle span {
+      display: block;
+      width: 30px;
+      height: 1px; /* 太さを2pxに変更 */
+      background-color: #04a4fc; /* 青 */
+      margin-bottom: 6px; /* 間隔を調整 */
+      transition: transform 0.3s ease;
+    }
+    #menuToggle span:nth-child(2) {
+      margin-bottom: 6px; /* 間隔を調整 */
+    }
+    #menuToggle span:last-child {
+      margin-bottom: 0;
+    }
+    #menuToggle.open span:first-child {
+      transform: rotate(45deg) translate(2px, 2px);
+    }
+    #menuToggle.open span:nth-child(2) {
+      opacity: 0;
+    }
+    #menuToggle.open span:last-child {
+      transform: rotate(-45deg) translate(2px, -2px);
+    }
+    #menuToggle {
+      position: fixed;
+      top: 70px; /* 上部から50pxの位置 */
+      left: 40px; /* 左から20pxの位置 */
+      cursor: pointer;
+      z-index: 1000;
+    }
+
+    #siteIcon {
+      position: absolute;
+      top: 20px;
+      right: 20px;
+      width: 30px;
+      height: 30px;
+    }
+
+    #siteTitle {
+      position: absolute;
+      top: 10px; /* ハンバーガーメニュー上に配置 */
+      left: 40px; /* ハンバーガーメニューの右に配置 */
+      text-align: left; /* テキストを左寄せ */
+      color: #fff; /* 白 */
+      font-size: 18px; /* フォントサイズを変更 */
+    }
+
+    #menu {
+      position: fixed;
+      top: 0;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      background-color: #000; /* 黒 */
+      padding-top: 60px;
+      transition: left 0.3s ease;
+    }
+
+    #menu ul {
+      list-style-type: none;
+      padding: 0;
+    }
+
+    #menu li {
+      padding: 15px 0;
+      text-align: center;
+    }
+
+    #menu a {
+      color: #fff; /* 白 */
+      text-decoration: none;
+    }
+
+    #main {
+      padding: 50px 20px 20px; /* 上部の余白を調整 */
+    }
+
+    .menu-item {
+      color: #fff; /* 白 */
+      margin-bottom: 20px;
+    }
+
+    #oshirase {
+      padding: 50px; /* 左からの距離 */
+      top: 60px;
+      left: -250px;
+      width: 250px;
+      height: 100%;
+      color: #fff; /* 白 */
+      padding-top: 600px;
+      transition: left 0.3s ease;
+    }
+
+    #kajou {
+      margin-left: 40px;
+    }
+
+    #news {
+      text-align: center; /* 中央揃え */
+    }
+
+    .container {
+      display: none; /* New! の非表示 */
+    }
+
+    .container p {
+      position: absolute;
+      top: -515px; /* 上部からの距離 */
+      left: 45px;
+      font-size: 20px;
+      transform: rotate(-30deg);
+      color: #04a4fc;
+    }
+
+    /* 3つのテキストをハンバーガーメニューの右に配置 */
+    #additionalText {
+      position: absolute;
+      top: 70px; /* ハンバーガーメニューの上 */
+      left: 180px; /* ハンバーガーメニューの右から180px */
+      color: #fff;
+      display: flex;
+    }
+
+    #additionalText span {
+      margin-right: 20px; /* テキスト間の隙間 */
+    }
+
+    /* スマートフォン用のスタイル */
+    @media screen and (max-width: 768px) {
+      #header {
+        position: static; /* ヘッダー画像の位置を相対的に変更 */
+        width: 100%; /* 幅を100%に変更 */
+        max-width: none; /* 最大幅を解除 */
+        height: auto; /* 高さを自動調整 */
+      }
+      #kajou {
+        margin-left: 0; /* 左の余白をリセット */
+      }
+      #oshirase {
+        padding-left: 20px; /* 左のパディングを追加 */
+        padding-right: 20px; /* 右のパディングを追加 */
+      }
+      iframe {
+        max-width: 100%; /* YouTubeの埋め込みビデオをレスポンシブに */
+        height: auto; /* 高さを自動調整 */
+      }
+      #news {
+        padding-top: 60px; /* ニュースの上部のパディングを調整 */
+      }
+      /* スマートフォン用のテキストの位置調整 */
+      #additionalText {
+        top: 70px; /* ハンバーガーメニューの上 */
+        left: 20px; /* ハンバーガーメニューの右から20px */
+      }
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div id="menuToggle">
+      <span></span>
+      <span></span>
+      <span></span>
+    </div>
+    <nav id="menu">
+      <ul>
+        <li class="menu-item"><a href="#">ニュース</a></li>
+        <li class="menu-item"><a href="#">ファンレター</a></li>
+        <li class="menu-item" id="contentLink"><a href="#">コンテンツ</a></li> <!-- 修正点: idを追加 -->
+        <li class="menu-item"><a href="#">誕生日カウント</a></li>
+        <li class="menu-item"><a href="#">サイトの詳細</a></li>
+      </ul>
+    </nav>
+    <img id="siteIcon" src="site-icon.png" alt="Site Icon">
+    <p id="siteTitle"><span style="color:#04a4fc;">MIklear</span>-葛西美空さん非公式ファンサイト</p>
+  </header>
+  <div id="main">
+    <p id="news">News</p>
+    <p id="oshirase">お知らせ</p>
+    <ul id="kajou">
+      <li>深夜に荒ぶる葛西美空が公開されました!!</li>
+      <li><iframe width="560" height="315" src="https://www.youtube.com/embed/IhiCsK8vESQ" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe></li>
+    </ul>
+  </div>
+  <div class="container">
+    <p>New!</p>
+  </div>
+  <script>
+    document.getElementById('menuToggle').addEventListener('click', function() {
+      var menu = document.getElementById('menu');
+      var toggle = document.getElementById('menuToggle');
+      if (menu.style.left === '-250px') {
+        menu.style.left = '0';
+        toggle.classList.add('open');
+      } else {
+        menu.style.left = '-250px';
+        toggle.classList.remove('open');
+      }
+    });
+
+    // 「コンテンツ」のリンクをクリックしたときの処理
+    document.getElementById('contentLink').addEventListener('click', function() {
+      window.location.href = 'https://hasa224869.github.io/Mr/niceword.html'; // GitHub Pagesのniceword.htmlに遷移
+    });
+  </script>
+</body>
+</html>
