@@ -1,0 +1,450 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <title>Alula</title>
+    <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: radial-gradient(circle at center, #1a1d2b 0%, #0c0e18 100%);
+            font-family: 'Helvetica Neue', sans-serif;
+            color: #eee;
+            min-height: 100vh;
+            overflow-y: auto;
+        }
+
+        /* ホーム画面のスタイル */
+        .home-container {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            text-align: center;
+            opacity: 1;
+            transition: opacity 0.5s ease;
+        }
+
+        .home-title {
+            font-size: 28px;
+            font-weight: 300;
+            letter-spacing: 6px;
+            color: #e0eaff;
+            text-shadow: 0 0 6px rgba(180, 200, 255, 0.4);
+            margin-bottom: 30px;
+        }
+
+        #homeSearchInput {
+            width: 440px;
+            max-width: 90%;
+            padding: 14px 20px;
+            border: 1px solid #444;
+            border-radius: 30px;
+            font-size: 16px;
+            background-color: #1d2030;
+            color: #fff;
+            outline: none;
+            transition: box-shadow 0.3s ease;
+        }
+
+        #homeSearchInput::placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        #homeSearchInput:focus {
+            box-shadow: 0 0 8px rgba(120, 150, 255, 0.5);
+            border-color: #7aa8f0;
+        }
+
+        /* 検索結果画面のスタイル */
+        .search-results-container {
+            display: none;
+            padding: 20px;
+            margin-top: 60px;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+
+        .search-header {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background-color: rgba(28, 31, 45, 0.8);
+            padding: 15px 20px;
+            display: flex;
+            align-items: center;
+            z-index: 10;
+            backdrop-filter: blur(10px);
+        }
+
+        .search-header-logo {
+            color: #eee;
+            text-decoration: none;
+            font-size: 20px;
+            font-weight: 300;
+            letter-spacing: 2px;
+            cursor: pointer;
+            margin-right: 20px;
+        }
+
+        #searchResultsInput {
+            flex-grow: 1;
+            padding: 10px 15px;
+            border: 1px solid #444;
+            border-radius: 25px;
+            font-size: 16px;
+            background-color: #1d2030;
+            color: #fff;
+            outline: none;
+            transition: box-shadow 0.3s ease;
+        }
+
+        #searchResultsInput::placeholder {
+            color: #aaa;
+            font-style: italic;
+        }
+
+        #searchResultsInput:focus {
+            box-shadow: 0 0 8px rgba(120, 150, 255, 0.5);
+            border-color: #7aa8f0;
+        }
+
+        .wikipedia-summary {
+            background: #282c3f;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            color: #ddd;
+            font-size: 14px;
+            line-height: 1.6;
+            display: grid;
+            grid-template-columns: 1fr auto; /* テキストと画像の配置 */
+            grid-template-rows: auto auto;
+            gap: 15px;
+            align-items: start;
+        }
+
+        .wikipedia-summary h2 {
+            color: #b8cfff;
+            font-size: 1.1em;
+            margin-top: 0;
+            margin-bottom: 5px;
+            grid-column: 1 / -1; /* タイトルをフル幅にする */
+        }
+
+        .wikipedia-summary .wikipedia-text {
+            grid-column: 1;
+        }
+
+        .wikipedia-summary .wikipedia-image-container {
+            grid-column: 2;
+            max-width: 150px;
+            height: auto;
+            border-radius: 6px;
+            overflow: hidden;
+        }
+
+        .wikipedia-summary .wikipedia-image {
+            display: block;
+            width: 100%;
+            height: auto;
+        }
+
+        .wikipedia-summary .wikipedia-link {
+            font-size: 0.8em;
+            color: #888;
+            text-decoration: none;
+            grid-column: 1 / -1; /* リンクをフル幅にする */
+            text-align: right;
+        }
+
+        .wikipedia-summary .wikipedia-link:hover {
+            text-decoration: underline;
+        }
+
+        .wikipedia-summary .expand-button {
+            background: none;
+            color: #7aa8f0;
+            border: none;
+            padding: 5px 0;
+            cursor: pointer;
+            font-size: 0.9em;
+            outline: none;
+            display: none; /* Initially hidden */
+        }
+
+        .wikipedia-summary .expand-button:hover {
+            text-decoration: underline;
+        }
+
+        .wikipedia-summary .expanded-text {
+            display: none; /* Initially hidden */
+        }
+
+        .wikipedia-summary .related-words {
+            grid-column: 1 / -1;
+            margin-top: 10px;
+            font-size: 0.9em;
+            color: #aaa;
+        }
+
+        .wikipedia-summary .related-word {
+            color: #add8e6; /* 淡い青色 */
+            cursor: pointer;
+            text-decoration: none;
+            margin-right: 5px;
+        }
+
+        .wikipedia-summary .related-word:hover {
+            text-decoration: underline;
+        }
+
+        .search-result-item {
+            background: #1d2030;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 4px rgba(0,0,0,0.2);
+            transition: transform 0.2s ease-in-out;
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+        }
+
+        .search-result-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 3px 7px rgba(0,0,0,0.3);
+        }
+
+        .search-result-title {
+            font-size: 18px;
+            font-weight: bold;
+            color: #b8cfff;
+            margin-bottom: 8px;
+        }
+
+        .search-result-link {
+            color: #7aa8f0;
+            text-decoration: none;
+        }
+
+        .search-result-link:hover {
+            text-decoration: underline;
+        }
+
+        .search-result-snippet {
+            color: #aaa;
+            font-size: 14px;
+            line-height: 1.5;
+            margin-bottom: 12px;
+        }
+
+        .search-result-source {
+            color: #888;
+            font-size: 12px;
+            font-style: italic;
+        }
+
+        #loading-indicator {
+            display: none;
+            color: #aaa;
+            margin-top: 20px;
+            text-align: center;
+            font-style: italic;
+        }
+
+        #no-results-message {
+            display: none;
+            color: #ff6b6b;
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        /* フッター */
+        .footer {
+            position: fixed;
+            bottom: 20px;
+            font-size: 12px;
+            color: #666;
+            width: 100%;
+            text-align: center;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <div class="home-container" id="home">
+        <h1 class="home-title">Alula</h1>
+        <input type="text" id="homeSearchInput" placeholder="すべては、小さな羽ばたきから" />
+    </div>
+
+    <div class="search-results-container" id="searchResults">
+        <div class="search-header">
+            <a class="search-header-logo" onclick="showHomePage()">Alula</a>
+            <input type="text" id="searchResultsInput" placeholder="検索ワードを入力" />
+        </div>
+        <div id="loading-indicator">検索中...</div>
+        <div id="no-results-message">検索結果が見つかりませんでした。</div>
+        <div id="wikipedia-summary-container"></div>
+        <div id="results"></div>
+    </div>
+
+    <div class="footer">
+        © 2025 NoctAI Inc.
+    </div>
+
+    <script>
+        const homeSearchInput = document.getElementById("homeSearchInput");
+        const searchResultsInput = document.getElementById("searchResultsInput");
+        const homeContainer = document.getElementById("home");
+        const searchResultsContainer = document.getElementById("searchResults");
+        const resultsDiv = document.getElementById("results");
+        const loadingIndicator = document.getElementById("loading-indicator");
+        const noResultsMessage = document.getElementById("no-results-message");
+        const wikipediaSummaryContainer = document.getElementById("wikipedia-summary-container");
+
+        homeSearchInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                const query = homeSearchInput.value.trim();
+                if (query) {
+                    searchResultsInput.value = query;
+                    switchToSearchResults();
+                    searchWikipedia(query);
+                }
+            }
+        });
+
+        searchResultsInput.addEventListener("keypress", function(event) {
+            if (event.key === "Enter") {
+                const query = searchResultsInput.value.trim();
+                if (query) {
+                    searchWikipedia(query);
+                }
+            }
+        });
+
+        function switchToSearchResults() {
+            homeContainer.style.opacity = 0;
+            setTimeout(() => {
+                homeContainer.style.display = "none";
+                searchResultsContainer.style.display = "block";
+                setTimeout(() => {
+                    searchResultsContainer.style.opacity = 1;
+                }, 10);
+            }, 500);
+        }
+
+        function showHomePage() {
+            searchResultsContainer.style.display = "none";
+            homeContainer.style.display = "block";
+            setTimeout(() => {
+                homeContainer.style.opacity = 1;
+                homeSearchInput.value = "";
+                resultsDiv.innerHTML = "";
+                wikipediaSummaryContainer.innerHTML = "";
+                noResultsMessage.style.display = "none";
+            }, 10);
+        }
+
+        async function searchWikipedia(searchTerm) {
+            resultsDiv.innerHTML = '';
+            wikipediaSummaryContainer.innerHTML = '';
+            loadingIndicator.style.display = 'block';
+            noResultsMessage.style.display = 'none';
+
+            try {
+                // Wikipediaで検索する
+                const searchUrl = `https://ja.wikipedia.org/w/api.php?action=query&format=json&list=search&srsearch=${encodeURIComponent(searchTerm)}&utf8=1&origin=*`;
+                const searchResponse = await fetch(searchUrl);
+                const searchData = await searchResponse.json();
+
+                // 検索結果の処理
+                if (searchData?.query?.search?.length > 0) {
+                    loadingIndicator.style.display = 'none';
+
+                    const firstResult = searchData.query.search[0];
+                    const pageUrl = `https://ja.wikipedia.org/w/api.php?action=query&format=json&pageids=${firstResult.pageid}&prop=extracts|pageimages&exintro=1&explaintext=1&pithumbsize=150&origin=*`;
+                    const pageResponse = await fetch(pageUrl);
+                    const pageData = await pageResponse.json();
+                    const page = pageData?.query?.pages?.[firstResult.pageid];
+                    const extract = page?.extract;
+                    const pageImage = page?.thumbnail?.source;
+                    const pageLink = `https://ja.wikipedia.org/?curid=${firstResult.pageid}`;
+
+                    let summaryHTML = `<div class="wikipedia-summary"><h2>概要</h2><div class="wikipedia-text">`;
+                    const maxLines = 2;
+                    const lines = extract ? extract.split('\n').filter(line => line.trim() !== '') : [];
+                    const initialText = lines.slice(0, maxLines).join('<br>');
+                    const remainingText = lines.slice(maxLines).join('<br>');
+
+                    summaryHTML += `<p>${initialText}</p>`;
+                    if (remainingText) {
+                        summaryHTML += `<button class="expand-button" onclick="expandSummary(this)">展開</button><div class="expanded-text">${remainingText}</div>`;
+                    }
+                    summaryHTML += `</div>`;
+                    if (pageImage) {
+                        summaryHTML += `<div class="wikipedia-image-container"><img class="wikipedia-image" src="${pageImage}" alt="${firstResult.title}" /></div>`;
+                    }
+                    summaryHTML += `<a href="${pageLink}" target="_blank" class="wikipedia-link">Wikipedia</a>`;
+
+                    // 関連ワード
+                    if (searchData.query.search.length > 1) {
+                        summaryHTML += `<div class="related-words">関連ワード: `;
+                        for (let i = 1; i < Math.min(searchData.query.search.length, 4); i++) {
+                            const titleWords = searchData.query.search[i].title.split(/[\s・]/).filter(word => word !== '');
+                            if (titleWords.length > 0) {
+                                const firstWord = titleWords[0];
+                                summaryHTML += `<a class="related-word" onclick="searchResultsInput.value='${firstWord}'; searchWikipedia('${firstWord}')">${firstWord}</a>`;
+                                if (i < Math.min(searchData.query.search.length, 3) && titleWords.length > 0) {
+                                    summaryHTML += ` `;
+                                }
+                            }
+                        }
+                        summaryHTML += `</div>`;
+                    }
+
+                    summaryHTML += `</div>`;
+                    wikipediaSummaryContainer.innerHTML = summaryHTML;
+
+                    // その他の検索結果を表示
+                    searchData.query.search.forEach((result, index) => {
+                        if (index > 0) {
+                            const resultElement = document.createElement('div');
+                            resultElement.classList.add('search-result-item');
+                            resultElement.innerHTML = `
+                                <div class="search-result-title">${result.title}</div>
+                                <div class="search-result-snippet">${result.snippet}...</div>
+                                <a href="https://ja.wikipedia.org/?curid=${result.pageid}" target="_blank" class="search-result-link">続きを読む</a>
+                                <div class="search-result-source">Wikipedia</div>
+                            `;
+                            resultsDiv.appendChild(resultElement);
+                        }
+                    });
+
+                } else {
+                    loadingIndicator.style.display = 'none';
+                    noResultsMessage.style.display = 'block';
+                }
+            } catch (error) {
+                console.error('検索エラー:', error);
+                loadingIndicator.style.display = 'none';
+                noResultsMessage.style.display = 'block';
+            }
+        }
+
+        function expandSummary(button) {
+            const expandedText = button.nextElementSibling;
+            button.style.display = 'none';
+            expandedText.style.display = 'block';
+        }
+    </script>
+</body>
+</html>　
